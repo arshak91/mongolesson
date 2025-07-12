@@ -5,13 +5,18 @@ const ordersSchema = Schema({
     type: String,
     require: true
   },
-  surname: {
+  type: {
     type: String,
-    require: false
+    require: true
   },
-  email: String,
-  age: Number,
-  password: String
+  price: {
+    type: Number,
+    default: 0
+  },
+  description:{
+    type: String,
+    require: true
+  }
 })
 
 export const Orders = mongoose.model('orders', ordersSchema);
