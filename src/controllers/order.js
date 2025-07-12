@@ -1,17 +1,22 @@
 import fs from "fs";
+import { Orders } from "../models/orders.js";
 
-export const createOrder = (req, res) => {
+export const createOrder = async (req, res) => {
   console.log("user: ", req.user);
-  const order = {
+  const data = {
     ...req.body,
-    user: req.user.email
+    author: req.user.id
   }
-  const data = JSON.parse(fs.readFileSync("./db/orders.json"));
-  data.push(order)
-  fs.writeFileSync("./db/orders.json", JSON.stringify(data));
+  const order = await Orders.create(data);
+
   res.json({
     status: 1,
     message: "order created",
-    data: data
+    data: order
   })
+}
+
+export const getOrders = async (req, res) => {
+  const orders = await Orders.find().populate("author");
+  res.json(orders)
 }

@@ -2,6 +2,7 @@ import express from "express";
 import connectDB from "./src/db/dbConnect.js";
 import authRoutes from "./src/routes/auth.js"
 import orderRoutes from "./src/routes/orders.js"
+import "dotenv/config"
 const app = express()
 connectDB()
 app.use(express.json())

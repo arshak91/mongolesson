@@ -9,7 +9,11 @@ const usersSchema = Schema({
     type: String,
     require: true
   },
-  email: String,
+  email: {
+    type: String,
+    required: true,
+    unique: true
+  },
   age: Number,
   password: String
 })

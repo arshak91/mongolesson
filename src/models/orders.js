@@ -16,6 +16,10 @@ const ordersSchema = Schema({
   description:{
     type: String,
     require: true
+  },
+  author: {
+    type: Schema.Types.ObjectId,
+    ref: "users"
   }
 })
 

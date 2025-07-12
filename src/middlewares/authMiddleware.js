@@ -23,6 +23,7 @@ export const authMiddleware = async (req, res, next) => {
   let validToken = false;
   let errorMessage = "";
   let email = ""
+  let id = ""
   jwt.verify(req.headers.token, secret, (err, decoded) => {
     if (err) {
       console.log(err);
@@ -30,9 +31,13 @@ export const authMiddleware = async (req, res, next) => {
     } else {
       validToken = true
     }
+    console.log(decoded);
+    
     email = decoded.email
+    id = decoded.id
   });
   req.user = {
+    id,
     email
   }
   if (validToken) {
