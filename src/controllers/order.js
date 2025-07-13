@@ -17,6 +17,6 @@ export const createOrder = async (req, res) => {
 }
 
 export const getOrders = async (req, res) => {
-  const orders = await Orders.find().populate("author");
+  const orders = await Orders.find({}).populate("author");
   res.json(orders)
 }

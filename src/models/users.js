@@ -15,7 +15,10 @@ const usersSchema = Schema({
     unique: true
   },
   age: Number,
-  password: String
+  password: String,
+  wallet: {
+    type: Number
+  }
 })
 
 export const Users = mongoose.model('users', usersSchema);

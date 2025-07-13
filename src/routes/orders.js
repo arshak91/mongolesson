@@ -6,7 +6,6 @@ const routes = Router();
 
 
 routes.post("/", authMiddleware, createOrder)
-
 routes.post("/item", (req, res) => {
   res.json(req.body)
 })

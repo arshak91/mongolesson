@@ -4,6 +4,5 @@ import { loginMiddle } from "../middlewares/authMiddleware.js"
 const routes = Router()
 
 routes.post("/registration", register)
-
 routes.post("/login", loginMiddle, login)
 export default routes

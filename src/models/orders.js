@@ -3,11 +3,11 @@ import mongoose, { Schema } from "mongoose";
 const ordersSchema = Schema({
   name: {
     type: String,
-    require: true
+    required: true
   },
   type: {
     type: String,
-    require: true
+    required: true
   },
   price: {
     type: Number,
@@ -15,7 +15,11 @@ const ordersSchema = Schema({
   },
   description:{
     type: String,
-    require: true
+    required: true
+  },
+  count: {
+    type: Number,
+    required: true
   },
   author: {
     type: Schema.Types.ObjectId,
