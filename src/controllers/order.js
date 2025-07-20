@@ -20,3 +20,19 @@ export const getOrders = async (req, res) => {
   const orders = await Orders.find({}).populate("author");
   res.json(orders)
 }
+
+export const getMyOrder = async (req,res) => {
+  const userId = req.user._id
+  const orders = await Orders.find({
+    author: userId
+  })
+  res.json(orders)
+}
+
+export const getOthersOrder = async (req,res) => {
+  const userId = req.user._id
+  const orders = await Orders.find({
+    author: {$ne: userId}
+  })
+  res.json(orders)
+}

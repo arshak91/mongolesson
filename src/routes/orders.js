@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { authMiddleware } from "../middlewares/authMiddleware.js";
-import { createOrder, getOrders } from "../controllers/order.js";
+import { createOrder, getMyOrder, getOrders,getOthersOrder } from "../controllers/order.js";
 
 const routes = Router();
 
@@ -10,6 +10,11 @@ routes.post("/item", (req, res) => {
   res.json(req.body)
 })
 
-routes.get("/", getOrders)
+routes.get("/",authMiddleware, getOrders)
+
+routes.get("/myorders",authMiddleware,getMyOrder)
+
+routes.get("/oterorders",authMiddleware,getOthersOrder)
+
 
 export default routes

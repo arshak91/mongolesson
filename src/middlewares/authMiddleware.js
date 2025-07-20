@@ -36,10 +36,8 @@ export const authMiddleware = async (req, res, next) => {
     email = decoded.email
     id = decoded.id
   });
-  req.user = {
-    id,
-    email
-  }
+  const user = await Users.findById(id)
+  req.user = user
   if (validToken) {
     next()
   } else {
