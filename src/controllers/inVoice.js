@@ -1,31 +1,30 @@
-import { Users } from "../models/users.js";
+import { findUserAndUpdate, getUserById } from "../service/user.js";
 import { inVoice } from "../models/invoice.js";
-import { Orders } from "../models/orders.js";
-
+import { getOrderById } from "../service/order.js"
+import { priceCalculate } from "../service/invoice.js";
 
 export const createInVoice = async (req, res) => {
   const { orderId, count, price } = req.body;
   const userId = req.user.id
-  const user = await Users.findById(userId);
-  const order = await Orders.findById(orderId)
+  const user = await getUserById(userId);
+  const order = await getOrderById(orderId);
+  const calc = await priceCalculate(count, price, user.wallet)
   const totalPrice = count * price;
-  if(totalPrice > user.wallet) {
-    return res.status(402).json({ message: 'no enough money' });
+  if(!calc.status) {
+    return res.status(402).json(calc);
   };
-  const userData = await Users.findOneAndUpdate({
+  const userData = await findUserAndUpdate({
     _id: userId
   }, {
-    wallet: user.wallet - totalPrice
+    wallet: calc.wallet
   },{new: true});
-  const orderData = await Orders.findOneAndUpdate({
-    _id: orderId
-  }, {
-    count: order.count - count
-  }, {new: true})
-  console.log(orderData);
-  
+  // const orderData = await Orders.findOneAndUpdate({
+  //   _id: orderId
+  // }, {
+  //   count: order.count - count
+  // }, {new: true})
+  // console.log(orderData);
 
-  console.log(userData);
   const inVoiceRes = await inVoice.create({
     custom: userId,
     order: orderId,
